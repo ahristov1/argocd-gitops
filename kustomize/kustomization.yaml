@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - k8s/tomcat/deployment.yaml
+  - k8s/tomcat/service.yaml
+
+commonLabels:
+  app: tomcat
+  managed-by: argocd
+
+namespace: default
