@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: ragnorgg/devops-demo:v1.0
+        image: ragnorgg/devops-demo:dd53b520511478a64cde8629fa2e328140aca212
         ports:
         - containerPort: 80
         resources:
