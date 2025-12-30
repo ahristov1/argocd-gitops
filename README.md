@@ -42,3 +42,22 @@ GitHub Actions workflow explained:
   <li>Update Manifest: Changes the image tag in deployment.yaml to the new commit SHA</li>
   <li>Commit & Push: Commits the manifest change back to the repository</li>
 </ol>
+
+<h3>Step 7</h3>
+Configure Github secrets and Github Actions permissions.
+For the secrets they are configured in Settings -> Secrets and variables -> Actions. DOCKER_USERNAME is the docker hub username and DOCKER_PASSWORD is docker hub password in order to access the image from the account in docker hub.
+Github Actions is configured in Settings -> Actions -> General, allows Github Actions to create and approve pull requests.
+
+<h3>Step 8</h3>
+Create ArgoCD Application
+<b>CLI:</b>
+argocd app create nginx-app \
+  --repo https://github.com/YOUR_USERNAME/argocd-gitops.git \
+  --path kustomize \
+  --dest-server https://kubernetes.default.svc/ \
+  --dest-namespace default \
+  --sync-policy automated \
+  --auto-prune \
+  --self-heal
+
+<b>UI</b>
