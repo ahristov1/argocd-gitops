@@ -87,3 +87,32 @@ argocd app create nginx-app \ <br>
   <li>Cluster URL: https://kubernetes.default.svc</li>
   <li>Namesoace: default</li>
 </ol>
+<h2>Adding monitoring to the project</h2>
+Additionally I added monitoring in order to track/monitor resources.
+<br>
+The first step is to install helm. Helm is a package manager for k8s, it makes it easier to install all the components for Prometheus Grafana. Helm packages everything in to one chart and makes it like a single package for installation.
+<br>
+<img width="2734" height="434" alt="image" src="https://github.com/user-attachments/assets/cc768ff8-6b67-4f5f-8872-d0237d1033b7" />
+<br>
+After that add the Prometheus community charts repo to helm:
+<br>
+helm repo add prometheus-community https://prometheus-community.gith
+<br>
+helm repo update - this will refresh the available repositories/packages.
+<br>
+Created a new namespace in order for everything to be organized:
+<br>
+kubectl create namespace monitoring
+<br>
+helm install prometheus prometheus-community/kube-prometheus-stack \ <br>
+--namespace monitoring \ <br>
+--set prometheus.prometheusSpec.serviceMonitorSelectorNilUsesHelmValues=false <br>
+The second command will:
+<ul>
+  <li>install prometheus</li>
+  <li>specify which chart to use (in this case its prometheus-community/kube-prometheus-stack)</li>
+  <li>install in monitoring namespace</li>
+  <li>allow Prometheus to discover all ServiceMonitors, not just ones with labels</li>
+</ul>
+<br>
+
