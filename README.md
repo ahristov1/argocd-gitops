@@ -102,11 +102,14 @@ helm repo update - this will refresh the available repositories/packages.
 <br>
 Created a new namespace in order for everything to be organized:
 <br>
+<br>
 kubectl create namespace monitoring
+<br>
 <br>
 helm install prometheus prometheus-community/kube-prometheus-stack \ <br>
 --namespace monitoring \ <br>
 --set prometheus.prometheusSpec.serviceMonitorSelectorNilUsesHelmValues=false <br>
+<br>
 The second command will:
 <ul>
   <li>install prometheus</li>
@@ -114,5 +117,19 @@ The second command will:
   <li>install in monitoring namespace</li>
   <li>allow Prometheus to discover all ServiceMonitors, not just ones with labels</li>
 </ul>
+<h3>Adding ServiceMonitor for the application</h3>
+A ServiceMonitor is a custon resources in Prometheus that defines how a k8s service should be monitored. The custom resource is added by the Prometheus Operator. It tells Prometheus to scare metrics from the specified service. ServiceMonitor creates the connection between Prometheus and the application that we want to monitor.
 <br>
-
+<img width="1086" height="612" alt="image" src="https://github.com/user-attachments/assets/5f5e878e-6e16-44af-baef-c063d5222e7f" />
+<br>
+<ul>
+  <li>kind: ServiceMonitor - type of k8s resource (referenced from the API)</li>
+  <li>namespace: default - place the pod in the same namespace as the nginx service</li>
+  <li>selector.matchLabels.app: nginx - which service to monitor (matches nginx-service)</li>
+  <li>endpoints.port: http - which port to scrape (in the service its also named http)</li>
+  <li>interval: 30s - scrape metrics every 30 seconds</li>
+</ul>
+<br>
+From there the only thing that needs to be done is to create custom dashboards and set monitoring alarms.
+<br>
+For this demo the only dashboard that works and has alarm is CPU % usage dashboard.
