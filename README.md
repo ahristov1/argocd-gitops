@@ -118,7 +118,7 @@ The second command will:
   <li>allow Prometheus to discover all ServiceMonitors, not just ones with labels</li>
 </ul>
 <h3>Adding ServiceMonitor for the application</h3>
-A ServiceMonitor is a custon resources in Prometheus that defines how a k8s service should be monitored. The custom resource is added by the Prometheus Operator. It tells Prometheus to scare metrics from the specified service. ServiceMonitor creates the connection between Prometheus and the application that we want to monitor.
+A ServiceMonitor is a custom resource in Prometheus that defines how a k8s service should be monitored. The custom resource is added by the Prometheus Operator. It tells Prometheus to scan metrics from the specified service. ServiceMonitor creates the connection between Prometheus and the application that we want to monitor.
 <br>
 <img width="1086" height="612" alt="image" src="https://github.com/user-attachments/assets/5f5e878e-6e16-44af-baef-c063d5222e7f" />
 <br>
